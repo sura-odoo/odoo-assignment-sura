@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="stock_picking_batch_form_inherit" model="ir.ui.view">
+        <field name="name">stock.picking.batch.form.inherit</field>
+        <field name="model">stock.picking.batch</field>
+        <field name="inherit_id" ref="stock_picking_batch.stock_picking_batch_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//field[@name='scheduled_date']" position="after">
+                <field name="fleet_id" placeholder="Third Party Provider"/>
+                <field name="dock_id"/>
+                <field name="category_id" placeholder="e.g. Semi-Truck"/>
+                <field name="total_weight" widget="progressbar" invisible="category_id == None"/>
+                <field name="total_volume" widget="progressbar" invisible="category_id == None"/>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="stock_picking_batch.stock_picking_batch_action" model="ir.actions.act_window">
+        <field name="view_mode">tree,kanban,form,graph</field>
+    </record>
+
+    <record id="stock_picking_batch_view_graph" model="ir.ui.view">
+        <field name="name">stock.picking.batch.graph</field>
+        <field name="model">stock.picking.batch</field>
+        <field name="arch" type="xml">
+            <graph disable_linking="1" sample="1">
+                <field name="scheduled_date" interval="day" type="row"/>
+                <field name="category_id" type="row"/>
+                <field name="total_weight" type="measure"/>
+                <field name="total_volume" type="measure"/>
+            </graph>
+        </field>
+    </record>
+</odoo>
