@@ -11,4 +11,3 @@ class StockPicking(models.Model):
                 for move in record.move_ids:
                     total += move.product_id.volume*move.product_qty
                 record.volume = total
-            
